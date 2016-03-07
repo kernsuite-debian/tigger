@@ -1,0 +1,60 @@
+tigger (1.3.4-0trusty) trusty; urgency=medium
+
+  * new upstream release
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Mon, 07 Mar 2016 12:32:46 +0200
+
+tigger (1.3.3-2trusty) trusty; urgency=medium
+
+  * add more missing build dependencies
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Tue, 02 Feb 2016 11:47:30 +0200
+
+tigger (1.3.3-1trusty) trusty; urgency=medium
+
+  * add missing python-setuptools dependency
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Tue, 02 Feb 2016 11:23:50 +0200
+
+tigger (1.3.3-0trusty) trusty; urgency=medium
+
+  * new upstream release
+
+ -- Gijs Molenaar (launchpad ppa build key) <gijs@pythonic.nl>  Tue, 02 Feb 2016 11:04:13 +0200
+
+tigger (1.3.2-1trusty) trusty; urgency=low
+
+  * new upstream release
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Mon, 06 Oct 2014 18:23:14 +0200
+
+tigger (1.3.1-2trusty) trusty; urgency=low
+
+  * update to libicu52
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Tue, 08 Apr 2014 11:17:27 +0200
+
+tigger (1.3.1-1trusty) trusty; urgency=low
+
+  * build for trusty
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Fri, 04 Apr 2014 14:23:35 +0200
+
+tigger (1.3.1-2precise1) precise; urgency=low
+
+  * fix package description
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Tue, 04 Mar 2014 14:48:17 +0200
+
+tigger (1.3.1-1precise1) precise; urgency=low
+
+  * new upstream release
+  * added missing libicu48 dependency
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Tue, 04 Feb 2014 11:20:16 +0200
+
+tigger (1.3.0-1precise1) precise; urgency=low
+
+  * Initial release
+
+ -- Gijs Molenaar <gijs@pythonic.nl>  Fri, 28 Jan 2014 14:35:59 +0200
