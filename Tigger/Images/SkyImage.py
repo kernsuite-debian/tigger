@@ -526,11 +526,11 @@ class FITSImagePlotItem (SkyCubePlotItem):
     hdr = header.copy();
     nax = hdr['NAXIS']+1;
     hdr['NAXIS'] = nax;
-    hdr.update('NAXIS%d'%nax,2,"complex image");
-    hdr.update('CTYPE%d'%nax,"COMPLEX","complex image");
-    hdr.update('CRPIX%d'%nax,1);
-    hdr.update('CRVAL%d'%nax,1);
-    hdr.update('CDELT%d'%nax,1);
+    hdr.set('NAXIS%d'%nax,2,"complex image");
+    hdr.set('CTYPE%d'%nax,"COMPLEX","complex image");
+    hdr.set('CRPIX%d'%nax,1);
+    hdr.set('CRVAL%d'%nax,1);
+    hdr.set('CDELT%d'%nax,1);
     return hdr;
 
   @staticmethod
@@ -578,7 +578,7 @@ class FITSImagePlotItem (SkyCubePlotItem):
       raise ValueError,"Cannot load a one-dimensional FITS file";
     # setup projection
     # (strip out history from header, as big histories really slow down FITSWCS)
-    hdr1 = pyfits.Header(filter(lambda x:not str(x).startswith('HISTORY'),hdr.ascard));
+    hdr1 = pyfits.Header(filter(lambda x:not str(x).startswith('HISTORY'),hdr.cards));
     proj = Projection.FITSWCS(hdr1);
     nx = ny = None;
     # find X and Y axes
