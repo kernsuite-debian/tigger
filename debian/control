@@ -1,10 +1,10 @@
 Source: tigger
 Section: python
 Priority: extra
-Maintainer: Gijs Molenaar <gijs@pythonic.nl>
+Maintainer: KERN packaging <packaging@kernsuite.info>
 Build-Depends: debhelper (>= 8.0.0), python-all, python-setuptools,
  python-kittens, python-qt4, python-qwt5-qt4
-Standards-Version: 3.9.2
+Standards-Version: 3.9.7
 Homepage: https://github.com/ska-sa/tigger
 X-Python-Version: 2.7
 
@@ -13,4 +13,9 @@ Architecture: any
 Depends: ${python:Depends}, ${misc:Depends}, python-kittens, python-pyfits,
  python-astlib, python-scipy, python-numpy, python-qt4, python-qwt5-qt4,
  libicu55
+Description: FITS and MeqTrees LSM viewer, python 2 library
+
+Package: tigger
+Architecture: any
+Depends: python-tigger
 Description: FITS and MeqTrees LSM viewer

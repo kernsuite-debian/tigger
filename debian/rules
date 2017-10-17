@@ -1,14 +1,16 @@
 #!/usr/bin/make -f
 # -*- makefile -*-
 #
-# Uncomment this to turn on verbose mode.
 export DH_VERBOSE=1
+export PYBUILD_NAME=tigger
 
 %:
-	dh $@ --with python2 --buildsystem python_distutils
+	dh $@ --with python2 --buildsystem=pybuild
 
 override_dh_auto_clean:
-	dh_auto_clean
-	rm -rf astro_tigger.egg-info
+	python setup.py clean
+	rm -rf .pybuild
+	rm -rf *.egg-info
 	rm -rf dist/*
+	rm -rf build
 
