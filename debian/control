@@ -2,8 +2,14 @@ Source: tigger
 Section: python
 Priority: extra
 Maintainer: KERN packaging <packaging@kernsuite.info>
-Build-Depends: debhelper (>= 8.0.0), python-all, python-setuptools,
- python-kittens, python-qt4, python-qwt5-qt4
+Build-Depends:
+ debhelper (>= 8.0.0),
+ dh-python,
+ python-all,
+ python-setuptools,
+ python-kittens,
+ python-qt4,
+ python-qwt5-qt4
 Standards-Version: 3.9.7
 Homepage: https://github.com/ska-sa/tigger
 X-Python-Version: 2.7
