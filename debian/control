@@ -4,6 +4,7 @@ Priority: extra
 Maintainer: KERN packaging <packaging@kernsuite.info>
 Build-Depends:
  debhelper (>= 8.0.0),
+ build-essential,
  dh-python,
  python-all,
  python-setuptools,
