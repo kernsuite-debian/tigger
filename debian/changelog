@@ -1,4 +1,4 @@
-tigger (1.4.0-1kern1) bionic; urgency=medium
+tigger (1.4.0-1kern2) bionic; urgency=medium
 
   * New upstream version 1.4.0
   * port to kern-dev
