@@ -36,5 +36,5 @@ Description: FITS and MeqTrees LSM viewer, python 2 library
 
 Package: tigger
 Architecture: any
-Depends: python-tigger
+Depends: python-astro-tigger
 Description: dependency package for FITS and MeqTrees LSM viewer
