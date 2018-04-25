@@ -18,7 +18,7 @@ Package: python-tigger
 Architecture: any
 Depends: ${python:Depends}, ${misc:Depends}, python-kittens, python-pyfits,
  python-astlib, python-scipy, python-numpy, python-qt4, python-qwt5-qt4,
- libicu55
+ libicu55, python-tigger-lsm
 Description: FITS and MeqTrees LSM viewer, python 2 library
 
 Package: tigger
