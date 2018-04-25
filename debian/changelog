@@ -1,8 +1,21 @@
-tigger (1.4.0-1kern1) xenial; urgency=medium
+tigger (1.4.0-1kern4) bionic; urgency=medium
+
+  * fixing dependency
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 10 Apr 2018 08:51:57 +0000
+
+tigger (1.4.0-1kern3) bionic; urgency=medium
+
+  * add missing build dep
+
+ -- KERN packaging <packaging@kernsuite.info>  Mon, 09 Apr 2018 14:33:51 +0000
+
+tigger (1.4.0-1kern2) bionic; urgency=medium
 
   * New upstream version 1.4.0
+  * port to kern-dev
 
- -- KERN packaging <packaging@kernsuite.info>  Tue, 03 Apr 2018 12:36:38 +0200
+ -- KERN packaging <packaging@kernsuite.info>  Mon, 09 Apr 2018 14:11:01 +0000
 
 tigger (1.3.10-1kern1) xenial; urgency=medium
 

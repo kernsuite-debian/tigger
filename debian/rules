@@ -2,15 +2,7 @@
 # -*- makefile -*-
 #
 export DH_VERBOSE=1
-export PYBUILD_NAME=tigger
+export PYBUILD_NAME=astro-tigger
 
 %:
 	dh $@ --with python2 --buildsystem=pybuild
-
-override_dh_auto_clean:
-	python setup.py clean
-	rm -rf .pybuild
-	rm -rf *.egg-info
-	rm -rf dist/*
-	rm -rf build
-
