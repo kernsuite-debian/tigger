@@ -11,7 +11,8 @@ Build-Depends:
  python-astro-kittens,
  python-astro-tigger-lsm,
  python-qt4,
- python-qwt5-qt4
+ python-qwt5-qt4,
+ python-astropy
 Standards-Version: 3.9.7
 Homepage: https://github.com/ska-sa/tigger
 X-Python-Version: 2.7
@@ -23,6 +24,7 @@ Depends:
  ${python:Depends},
  ${misc:Depends},
  ${sh:Depends},
+ python-astropy,
  python-astro-kittens,
  python-pyfits,
  python-astlib,
