@@ -33,7 +33,8 @@ Depends:
  python-qt4,
  python-qwt5-qt4,
  python-astro-tigger-lsm,
- libicu60
+ libicu60,
+ libcanberra-gtk-module
 Description: FITS and MeqTrees LSM viewer, python 2 library
 
 Package: tigger
