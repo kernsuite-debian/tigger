@@ -1,0 +1,13 @@
+diff --git a/TigGUI/Tools/dependency_check.py b/TigGUI/Tools/dependency_check.py
+index 59627be..07c9d9c 100644
+--- a/TigGUI/Tools/dependency_check.py
++++ b/TigGUI/Tools/dependency_check.py
+@@ -77,7 +77,7 @@ else:
+         deps_available = True
+     else:
+         deps_available = False
+-        missing.append("PyQt-Qwt>=2.0.0")
++        missing.append("PyQt-Qwt>=1.9.0")
+ 
+ if not deps_available:
+     import sys

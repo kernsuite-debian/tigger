@@ -3,46 +3,32 @@ Section: python
 Priority: extra
 Maintainer: KERN packaging <packaging@kernsuite.info>
 Build-Depends:
- debhelper (>= 9),
+ debhelper (>= 11),
  build-essential,
  dh-python,
- python-all,
  python3-all,
- python-setuptools,
  python3-setuptools,
- python-astro-kittens,
  python3-astro-kittens,
- python-astro-tigger-lsm,
  python3-astro-tigger-lsm,
- python-qt4,
- python3-pyqt4,
- python-qwt5-qt4,
+ python3-pyqt5.qwt,
+ python3-scipy,
+ python3-numpy,
+ python3-astlib,
+ python3-astropy,
+ pyqt5-dev,
+ pyqt5-dev-tools,
  python3-pyqt5,
- python-astropy,
- python3-astropy
-Standards-Version: 4.4.1
+ python3-pyqt5.qtopengl,
+ python3-pyqt5.qtsvg,
+ libqwt-qt5-dev,
+ libqwt-headers,
+ libqt5opengl5-dev,
+ libqt5svg5-dev,
+ g++,
+ dpkg-dev
+Standards-Version: 4.5.0
 Homepage: https://github.com/ska-sa/tigger
-X-Python-Version: 2.7
-X-Python3-Version: 3.6
-
-Package: python-astro-tigger
-Replaces: python-tigger
-Architecture: any
-Depends:
- ${python:Depends},
- ${misc:Depends},
- ${sh:Depends},
- python-astropy,
- python-astro-kittens,
- python-astlib,
- python-scipy,
- python-numpy,
- python-qt4,
- python-qwt5-qt4,
- python-astro-tigger-lsm,
- libicu60,
- libcanberra-gtk-module
-Description: FITS and MeqTrees LSM viewer, python 2 library
+XS-Python3-Version: >=3.6
 
 Package: python3-astro-tigger
 Replaces: python-tigger
@@ -57,13 +43,10 @@ Depends:
  python3-scipy,
  python3-numpy,
  python3-pyqt5,
- python3-pyqt4,
- python3-astro-tigger-lsm,
- libicu60,
- libcanberra-gtk-module
+ python3-astro-tigger-lsm
 Description: FITS and MeqTrees LSM viewer, python 3 library
 
 Package: tigger
 Architecture: any
-Depends: python-astro-tigger
+Depends: python3-astro-tigger
 Description: dependency package for FITS and MeqTrees LSM viewer

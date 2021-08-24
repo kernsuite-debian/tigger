@@ -1,0 +1,35 @@
+Description: Remove debian file
+ This archive files are uploaded to KERN for focal
+ .
+ tigger (1.6.0-1kern1) focal; urgency=medium
+ .
+   [ Athanaseus Javas Ramaila ]
+   * New upstream release 1.6.0
+   * Build for focal
+Author: KERN packaging <packaging@kernsuite.info>
+
+
+diff --git a/debian_pkgs/ubuntu_18_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00_all.deb b/debian_pkgs/ubuntu_18_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00_all.deb
+deleted file mode 100644
+index 4fab750..0000000
+Binary files a/debian_pkgs/ubuntu_18_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00_all.deb and /dev/null differ
+diff --git a/debian_pkgs/ubuntu_18_04_deb_pkg/python3-pyqt5.qwt_2.00.00_amd64.deb b/debian_pkgs/ubuntu_18_04_deb_pkg/python3-pyqt5.qwt_2.00.00_amd64.deb
+deleted file mode 100644
+index e97468f..0000000
+Binary files a/debian_pkgs/ubuntu_18_04_deb_pkg/python3-pyqt5.qwt_2.00.00_amd64.deb and /dev/null differ
+diff --git a/debian_pkgs/ubuntu_20_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1build1_all.deb b/debian_pkgs/ubuntu_20_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1build1_all.deb
+deleted file mode 100644
+index a7004a2..0000000
+Binary files a/debian_pkgs/ubuntu_20_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1build1_all.deb and /dev/null differ
+diff --git a/debian_pkgs/ubuntu_20_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1build1_amd64.deb b/debian_pkgs/ubuntu_20_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1build1_amd64.deb
+deleted file mode 100644
+index 29e9862..0000000
+Binary files a/debian_pkgs/ubuntu_20_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1build1_amd64.deb and /dev/null differ
+diff --git a/debian_pkgs/ubuntu_21_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1_all.deb b/debian_pkgs/ubuntu_21_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1_all.deb
+deleted file mode 100644
+index 3ec8e7c..0000000
+Binary files a/debian_pkgs/ubuntu_21_04_deb_pkg/python-pyqt5.qwt-doc_2.00.00-1_all.deb and /dev/null differ
+diff --git a/debian_pkgs/ubuntu_21_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1_amd64.deb b/debian_pkgs/ubuntu_21_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1_amd64.deb
+deleted file mode 100644
+index 0549374..0000000
+Binary files a/debian_pkgs/ubuntu_21_04_deb_pkg/python3-pyqt5.qwt_2.00.00-1_amd64.deb and /dev/null differ
