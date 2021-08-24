@@ -1,3 +1,11 @@
+tigger (1.6.0-1kern1) focal; urgency=medium
+
+  [ Athanaseus Javas Ramaila ]
+  * New upstream release 1.6.0
+  * Build for focal
+
+ -- KERN packaging <packaging@kernsuite.info>  Tue, 24 Aug 2021 00:36:04 +0000
+
 tigger (1.5.0-1kern1) bionic; urgency=medium
 
   [ Athanaseus Javas Ramaila ]
