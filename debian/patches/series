@@ -1,4 +1,2 @@
 # You must remove unused comment lines for the released package.
 End-of-Line-Char.patch
-PyQt-Qwt-version.patch
-Remove-Debian-Files.patch
