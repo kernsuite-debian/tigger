@@ -43,6 +43,10 @@ Depends:
  python3-scipy,
  python3-numpy,
  python3-pyqt5,
+ python3-pyqt5.qtsvg,
+ python3-pyqt5.qtopengl,
+ libqwt-qt5-6,
+ python3-pyqt5.qwt,
  python3-astro-tigger-lsm
 Description: FITS and MeqTrees LSM viewer, python 3 library
 
