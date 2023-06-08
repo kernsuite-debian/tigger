@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2011
+# Copyright (C) 2002-2022
 # The MeqTree Foundation &
 # ASTRON (Netherlands Foundation for Research in Astronomy)
 # P.O.Box 2, 7990 AA Dwingeloo, The Netherlands
@@ -20,16 +20,19 @@
 #
 
 import os.path
+from re import split
 import sys
 import time
 import traceback
 
 import numpy
-from PyQt5.Qt import (QWidget, QFileDialog, QVBoxLayout, QApplication, QMenu, QClipboard, QInputDialog, QActionGroup)
+from PyQt5.Qt import (QWidget, QFileDialog, QVBoxLayout, QApplication, QMenu, QClipboard, QInputDialog, QActionGroup, QTextOption, QFont)
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtCore import Qt
-from PyQt5.QtWidgets import QDockWidget
+from PyQt5.QtWidgets import QDockWidget, QLabel, QPlainTextEdit
 from astropy.io import fits as pyfits
+from astropy.wcs import WCS
+from astropy.io.fits import Header
 
 from TigGUI.Images import FITS_ExtensionList
 from TigGUI.Images import SkyImage
@@ -89,6 +92,8 @@ class ImageManager(QWidget):
         self._repopulateMenu()
         self.signalShowMessage = None
         self.signalShowErrorMessage = None
+        # FITS header preview pane
+        self.fits_info = QPlainTextEdit()
 
     def close(self):
         dprint(1, "closing Manager")
@@ -105,6 +110,25 @@ class ImageManager(QWidget):
     def setMainWindow(self, _mainwin):
         self.mainwin = _mainwin
 
+    def FITSHeaderPreview(self, fname):
+        """Loads information for the FITS header preview pane.
+        Connected via the QFileDialog currentChanged signal.
+        """
+        if os.path.isfile(fname):
+            name = os.path.basename(fname)
+            split_name = os.path.splitext(name)
+            if split_name[1].startswith(tuple(FITS_ExtensionList)):
+                try:
+                    with pyfits.open(fname) as hdu:
+                        hdu.verify('silentfix')
+                        hdr = hdu[0].header
+                        self.fits_info.setPlainText(
+                            "[File size: " + str(round(hdu._file.tell()/1024/1024, 2)) + " MiB]\n" + hdr.tostring(sep='\n', padding=True))
+                except:
+                    self.fits_info.setPlainText("Error Reading FITS file")
+        else:
+            self.fits_info.clear()
+
     def loadImage(self, filename=None, duplicate=True, to_top=True, model=None):
         """Loads image. Returns ImageControlBar object.
         If image is already loaded: returns old ICB if duplicate=False (raises to top if to_top=True),
@@ -116,10 +140,31 @@ class ImageManager(QWidget):
             if not self._load_image_dialog:
                 dialog = self._load_image_dialog = QFileDialog(self, "Load FITS image", ".",
                                                                "FITS images (%s);;All files (*)" % (" ".join(
-                                                                   ["*" + ext for ext in FITS_ExtensionList])))
+                                                                   ["*" + ext for ext in FITS_ExtensionList])),
+                                                               options=QFileDialog.DontUseNativeDialog)
                 dialog.setFileMode(QFileDialog.ExistingFile)
                 dialog.setModal(True)
                 dialog.filesSelected['QStringList'].connect(self.loadImage)
+                layout = dialog.layout()
+                if layout:
+                    # FITS header preview pane
+                    dialog.currentChanged.connect(self.FITSHeaderPreview)
+                    self.fits_info.setMinimumWidth(263)
+                    dialog.setMinimumWidth(dialog.width() + self.fits_info.minimumWidth())
+                    self.fits_info.setWordWrapMode(QTextOption.NoWrap)
+                    self.fits_info.setLineWrapMode(QPlainTextEdit.NoWrap)
+                    self.fits_info.setTabStopWidth(40)
+                    f = QFont()
+                    f.setFamily("Monospace")
+                    f.setPointSize(10)
+                    f.setFixedPitch(True)
+                    self.fits_info.setFont(f)
+                    self.fits_info.setReadOnly(True)
+                    _flabel = QLabel("FITS File Information")
+                    _flabel.setAlignment(Qt.AlignHCenter)
+                    layout.addWidget(_flabel, 0, 3)
+                    layout.addWidget(self.fits_info, 1, 3, 3, 1)
+                    dialog.setLayout(layout)
             self._load_image_dialog.exec_()
             return None
         if isinstance(filename, QStringList):
@@ -526,8 +571,115 @@ class ImageManager(QWidget):
         self.signalShowMessage.emit("""Creating image for %s""" % expression, 3000)
         QApplication.flush()
         try:
+            # check and fix header
+            if numpy.ndim(result) < template.fits_header.get('NAXIS'):
+                dprint(2, "Fixing image header", expression)
+                self.signalShowMessage.emit(f"Fixing image header for {expression}", 3000)
+
+                # get NAXIS diff
+                _naxis = template.fits_header.get('NAXIS')
+                _ndims = numpy.ndim(result)
+
+                # sub() WCS to new NAXIS
+                _wcs = WCS(template.fits_header)
+                _new_wcs = _wcs.wcs.sub(_ndims)
+
+                # create new header
+                _new_header = _new_wcs.to_header()
+                _header = Header.fromstring(_new_header)
+
+                # create keyword ignore list
+                ignore_list = []
+                for i in range(_ndims):
+                    ignore_list.append(f'NAXIS{i + 1 + _ndims}')
+                    ignore_list.append(f'CTYPE{i + 1 + _ndims}')
+                    ignore_list.append(f'CRVAL{i + 1 + _ndims}')
+                    ignore_list.append(f'CDELT{i + 1 + _ndims}')
+                    ignore_list.append(f'CUNIT{i + 1 + _ndims}')
+                    ignore_list.append(f'CRPIX{i + 1 + _ndims}')
+                ignore_list.append('HISTORY')
+                ignore_list.append('COMMENT')
+
+                # diff the two headers
+                _diff_header = pyfits.HeaderDiff(template.fits_header,
+                                                 _header,
+                                                 ignore_keywords=ignore_list,
+                                                 ignore_comments='*')
+
+                # update new header with missing cards
+                for key in _diff_header.diff_keywords[0]:
+                    _header[key] = template.fits_header[key]
+
+                # check for PC and remove
+                # a brute force approach for now
+                if template.fits_header.get('PC01_01'):
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC0{i+1+_ndims}_0{n + 1}')
+                            except:
+                                continue
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC0{i+1}_0{n + 1+_ndims}')
+                            except:
+                                continue
+                elif template.fits_header.get('PC1_1'):
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC{i+1+_ndims}_{n + 1}')
+                            except:
+                                continue
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC{i+1}_{n + 1+_ndims}')
+                            except:
+                                continue
+                elif template.fits_header.get('PC001001'):
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC00{i+1+_ndims}00{n + 1}')
+                            except:
+                                continue
+                    for i in range(_naxis):
+                        for n in range(_naxis):
+                            try:
+                                _header.remove(f'PC00{i+1}00{n + 1+_ndims}')
+                            except:
+                                continue
+
+                # add comments
+                _comms = template.fits_header.get('COMMENT')
+                if _comms:
+                    for card in _comms:
+                        _header.append(('COMMENT', card))
+
+                # add history
+                _hist = template.fits_header.get('HISTORY')
+                if _hist:
+                    for card in _hist:
+                        _header.append(('HISTORY', card))
+
+                # restore card comments
+                for card in template.fits_header.keys():
+                    if card in _header:
+                        _comm = template.fits_header.comments[card]
+                        if _comm:
+                            _header.set(keyword=card, comment=_comm)
+
+                # set new header
+                template.fits_header = _header
+
+            # create new FITS file
             hdu = pyfits.PrimaryHDU(result.transpose(), template.fits_header)
-            skyimage = SkyImage.FITSImagePlotItem(name=expression, filename=None, hdu=hdu)
+            hdu.verify('fix')
+            skyimage = SkyImage.FITSImagePlotItem(name=expression,
+                                                  filename=None,
+                                                  hdu=hdu)
         except:
             busy.reset_cursor()
             traceback.print_exc()
