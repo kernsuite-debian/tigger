@@ -26,7 +26,7 @@ Build-Depends:
  libqt5svg5-dev,
  g++,
  dpkg-dev
-Standards-Version: 4.5.0
+Standards-Version: 4.6.1
 Homepage: https://github.com/ska-sa/tigger
 XS-Python3-Version: >=3.6
 
