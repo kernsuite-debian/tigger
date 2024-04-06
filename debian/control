@@ -3,7 +3,7 @@ Section: python
 Priority: extra
 Maintainer: KERN packaging <packaging@kernsuite.info>
 Build-Depends:
- debhelper (>= 11),
+ debhelper-compat (= 13),
  build-essential,
  dh-python,
  python3-all,
@@ -26,9 +26,9 @@ Build-Depends:
  libqt5svg5-dev,
  g++,
  dpkg-dev
-Standards-Version: 4.6.1
+Standards-Version: 4.6.2.0
 Homepage: https://github.com/ska-sa/tigger
-XS-Python3-Version: >=3.6
+XS-Python3-Version: >=3.10
 
 Package: python3-astro-tigger
 Replaces: python-tigger
